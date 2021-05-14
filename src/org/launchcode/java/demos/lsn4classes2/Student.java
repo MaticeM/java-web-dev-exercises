@@ -30,8 +30,7 @@ public class Student {
 
 
      //TODO: Uncomment and complete the getGradeLevel method here:
-    public String getGradeLevel() {
-        // Determine the grade level of the student based on numberOfCredits
+     public String getGradeLevel() {
         if (numberOfCredits <= 29) {
             return "freshman";
         } else if (numberOfCredits <= 59) {
@@ -41,22 +40,47 @@ public class Student {
         } else {
             return "senior";
         }
-    }
+     }
+
 
     // TODO: Complete the addGrade method.
     public void addGrade(int courseCredits, double grade) {
         // Update the appropriate fields: numberOfCredits, gpa
         double currentTotalQualityScore = gpa * numberOfCredits;
-        currentTotalQualityScore += courseCredits * grade;
+        currentTotalQualityScore += (courseCredits * grade);
         numberOfCredits += courseCredits;
         gpa = currentTotalQualityScore/numberOfCredits;
     }
 
+
     // TODO: Add your custom 'toString' method here. Make sure it returns a well-formatted String rather
     //  than just the class fields.
 
+    @Override
+    public String toString() {
+        return (this.name + " has " + this.numberOfCredits + " credits and a GPA of " + this.gpa);
+    }
+
     // TODO: Add your custom 'equals' method here. Consider which fields should match in order to call two
     //  Student objects equal.
+
+    @Override
+    public boolean equals(Object toBeCompared) {
+        if (toBeCompared == this) {
+            return true;
+        }
+
+        if (toBeCompared == null) {
+            return false;
+        }
+
+        if (toBeCompared.getClass() != getClass()) {
+            return false;
+        }
+
+        Student theStudent = (Student) toBeCompared;
+        return theStudent.getStudentId() == getStudentId();
+    }
 
     public String getName() {
         return name;
@@ -88,27 +112,6 @@ public class Student {
 
     private void setNumberOfCredits(int numberOfCredits) {
         this.numberOfCredits = numberOfCredits;
-    }
-
-    @Override
-    public String toString() {
-        String studentReport = String.format("%s is %s with %d credits and a GPA of %.2f", name, getGradeLevel(), getNumberOfCredits(), getGpa());
-                return studentReport;
-    }
-
-    @Override
-    public boolean  equals(Object toBeCompared) {
-        if(toBeCompared == this) {
-            return true;
-        }
-        if(toBeCompared == null) {
-            return false;
-        }
-        if(toBeCompared.getClass() != getClass()) {
-            return false;
-        }
-        Student theStudent = (Student) toBeCompared;
-        return theStudent.getStudentId() == this.getStudentId();
     }
 
 
