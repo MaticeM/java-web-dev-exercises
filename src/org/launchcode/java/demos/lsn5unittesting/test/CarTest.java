@@ -2,8 +2,8 @@ package org.launchcode.java.demos.lsn5unittesting.test;
 import org.junit.Before;
 import org.junit.Test;
 import org.launchcode.java.demos.lsn5unittesting.main.Car;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 
 public class CarTest {
@@ -18,10 +18,21 @@ public class CarTest {
     public void emptyTest() {
         assertEquals(10,10,.001);
     }
+
     //TODO: constructor sets gasTankLevel properly
     @Test
     public void testInitialGasTank() {
         assertEquals(10, test_car.getGasTankLevel(), .001);
+    }
+
+    @Test
+    public void testInitialGasTankAgain() {
+        assertFalse(0 > test_car.getGasTankLevel());
+    };
+
+    @Test
+    public void testInitialGasTankFinal() {
+        assertTrue(10 == test_car.getGasTankLevel());
     }
 
     //TODO: gasTankLevel is accurate after driving within tank range
@@ -35,11 +46,16 @@ public class CarTest {
     @Test
     public void testGasTankAfterExceedingTankRange() {
         test_car.drive(600);
-        assertTrue (test_car.getGasTankLevel()==0);
+        assertTrue(test_car.getGasTankLevel() == 0);
     }
+
+
     //TODO: can't have more gas than tank size, expect an exception
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testGasOverfillException() {
+        test_car.addGas(5);
+        fail("Shouldn't get here, car cannot have more gas in tank than the size of the tank");
+
 
     }
 
